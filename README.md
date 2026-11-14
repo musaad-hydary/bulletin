@@ -4,6 +4,9 @@ A minimal newspaper-style dashboard for a digital photo frame or any Android dis
 
 **Live:** https://bulletin-six.vercel.app
 
+![Bulletin on the frame showing Album of the Day](assets/img-1.png)
+![Bulletin dashboard showing Charts mode](assets/img-2.png)
+
 ## Features
 
 - **Clock** - live 12-hour clock with seconds
