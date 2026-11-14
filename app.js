@@ -155,10 +155,13 @@ function renderCalendar() {
 
   document.getElementById('cal-section-label').textContent = `${MONTHS[calMonth]} ${calYear}`;
 
-  let grid = '<div class="cal-grid">';
+  let headers = '<div class="cal-headers">';
   ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(d => {
-    grid += `<div class="cal-day-header">${d}</div>`;
+    headers += `<div class="cal-day-header">${d}</div>`;
   });
+  headers += '</div>';
+
+  let grid = '<div class="cal-grid">';
   for (let i = 0; i < firstDow; i++) grid += '<div class="cal-cell"></div>';
   for (let d = 1; d <= daysInMonth; d++) {
     const key = monthPrefix + String(d).padStart(2, '0');
@@ -171,7 +174,7 @@ function renderCalendar() {
   }
   grid += '</div>';
 
-  container.innerHTML = grid;
+  container.innerHTML = headers + grid;
 }
 
 function initCalNav() {
