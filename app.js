@@ -16,29 +16,6 @@ const API_BASE = window.location.hostname === 'localhost' || window.location.hos
   ? 'https://bulletin-six.vercel.app'
   : '';
 
-/* ── Greeting ───────────────────────────────────────────────── */
-const EMOTICONS = [':)', ':D', ':O', ';)', ':P', '8)'];
-let emoticonIdx = 0;
-
-function getGreeting() {
-  const h = new Date().getHours();
-  if (h >= 6  && h < 12) return 'good morning';
-  if (h >= 12 && h < 17) return 'good afternoon';
-  if (h >= 17 && h < 21) return 'good evening';
-  return 'good night';
-}
-
-function updateGreeting() {
-  emoticonIdx = (emoticonIdx + 1) % EMOTICONS.length;
-  const textEl     = document.getElementById('greeting-text');
-  const emoticonEl = document.getElementById('greeting-emoticon');
-  if (textEl)     textEl.textContent     = getGreeting();
-  if (emoticonEl) emoticonEl.textContent = EMOTICONS[emoticonIdx];
-}
-
-updateGreeting();
-setInterval(updateGreeting, 2000);
-
 /* ── Clock ──────────────────────────────────────────────────── */
 const DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const MONTHS = ['January','February','March','April','May','June',
@@ -66,7 +43,7 @@ let musicSource = 'charts';
 function albumHTML(album) {
   const title  = escHtml(album.title  || 'Unknown Album');
   const artist = escHtml(album.artist || 'Unknown Artist');
-  const art    = album.artwork || '';
+  const art    = /^https:\/\//.test(album.artwork || '') ? album.artwork : '';
   return `
     <div class="album-card">
       <div class="album-art-box">
@@ -109,8 +86,6 @@ function initToggle() {
 }
 
 /* ── Calendar ───────────────────────────────────────────────── */
-const SHORT_MONTHS = ['Jan','Feb','Mar','Apr','May','Jun',
-                      'Jul','Aug','Sep','Oct','Nov','Dec'];
 
 function getEaster(year) {
   const a = year % 19, b = Math.floor(year / 100), c = year % 100;
@@ -166,15 +141,15 @@ function getCanadianHolidays(year) {
   return h;
 }
 
-const _today = new Date();
-let calYear  = _today.getFullYear();
-let calMonth = _today.getMonth();
+let calYear  = new Date().getFullYear();
+let calMonth = new Date().getMonth();
 
 function renderCalendar() {
   const container = document.getElementById('calendar-grid');
-  const todayYear  = _today.getFullYear();
-  const todayMonth = _today.getMonth();
-  const todayDate  = _today.getDate();
+  const today      = new Date();
+  const todayYear  = today.getFullYear();
+  const todayMonth = today.getMonth();
+  const todayDate  = today.getDate();
 
   const holidays    = getCanadianHolidays(calYear);
   const firstDow    = new Date(calYear, calMonth, 1).getDay();
@@ -268,8 +243,8 @@ function scheduleCalendarRefresh() {
   const now = new Date();
   const msUntilMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1) - now;
   setTimeout(() => {
-    const n = new Date();
-    calYear = n.getFullYear(); calMonth = n.getMonth();
+    const now = new Date();
+    calYear = now.getFullYear(); calMonth = now.getMonth();
     renderCalendar();
     scheduleCalendarRefresh();
   }, msUntilMidnight);
