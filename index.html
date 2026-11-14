@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frame Dashboard</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%2318110a'/><circle cx='16' cy='16' r='5' fill='%23f7f3eb'/><circle cx='16' cy='16' r='2' fill='%2318110a'/><path d='M16 2 L16 11 M16 21 L16 30 M2 16 L11 16 M21 16 L30 16' stroke='%23f7f3eb' stroke-width='1.5' stroke-linecap='round' opacity='0.4'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="newspaper">
+
+    <header class="masthead">
+      <div class="masthead-time">
+        <span id="clock"></span><span class="ampm" id="ampm"></span>
+      </div>
+<div class="masthead-date">
+        <span id="date-day"></span>, <span id="date-full"></span>
+      </div>
+    </header>
+
+    <main class="body">
+
+      <!-- Left: Calendar -->
+      <section class="column col-calendar">
+        <div class="cal-header">
+          <button class="cal-nav-btn" id="cal-prev">&#8249;</button>
+          <div class="section-label" id="cal-section-label">Calendar</div>
+          <button class="cal-nav-btn" id="cal-next">&#8250;</button>
+        </div>
+        <div id="calendar-grid"></div>
+      </section>
+
+      <div class="col-divider"></div>
+
+      <!-- Right: Music — order: Pop, Hip-Hop, R&B -->
+      <section class="column col-music">
+        <div class="music-header">
+          <div class="section-label">New Releases</div>
+          <div class="source-toggle">
+            <button class="toggle-btn active" data-source="charts">Charts</button>
+            <button class="toggle-btn" data-source="new">New Drops</button>
+          </div>
+        </div>
+        <div class="genres-wrap">
+
+          <div class="genre-section">
+            <div class="genre-label">Pop</div>
+            <div class="albums-row" id="albums-pop">
+              <div class="skeleton-card"></div>
+              <div class="skeleton-card"></div>
+              <div class="skeleton-card"></div>
+            </div>
+          </div>
+
+          <div class="genre-divider genre-divider--hiphop"></div>
+
+          <div class="genre-section">
+            <div class="genre-label">Hip&#8209;Hop</div>
+            <div class="albums-row" id="albums-hiphop">
+              <div class="skeleton-card"></div>
+              <div class="skeleton-card"></div>
+              <div class="skeleton-card"></div>
+            </div>
+          </div>
+
+          <div class="genre-divider genre-divider--rnb"></div>
+
+          <div class="genre-section">
+            <div class="genre-label">R&amp;B</div>
+            <div class="albums-row" id="albums-rnb">
+              <div class="skeleton-card"></div>
+              <div class="skeleton-card"></div>
+              <div class="skeleton-card"></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
