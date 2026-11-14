@@ -13,7 +13,7 @@ setInterval(applyTheme, 60 * 1000);
 
 /* proxy API to live Vercel when running locally */
 const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-  ? 'https://frame-dashboard-theta.vercel.app'
+  ? 'https://bulletin-six.vercel.app'
   : '';
 
 /* ── Greeting ───────────────────────────────────────────────── */
@@ -51,10 +51,10 @@ function updateClock() {
   const ap = h >= 12 ? 'PM' : 'AM';
   h = h % 12 || 12;
 
+  const s = String(now.getSeconds()).padStart(2, '0');
   document.getElementById('clock').textContent    = `${h}:${m}`;
+  document.getElementById('seconds').textContent  = `:${s}`;
   document.getElementById('ampm').textContent     = ap;
-  document.getElementById('date-day').textContent = DAYS[now.getDay()];
-  document.getElementById('date-full').textContent = `${MONTHS[now.getMonth()]} ${now.getDate()}`;
 }
 
 updateClock();
@@ -70,7 +70,7 @@ function albumHTML(album) {
   return `
     <div class="album-card">
       <div class="album-art-box">
-        ${art ? `<img class="album-art" src="${art}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}
+        ${art ? `<img class="album-art" src="${art}" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.display='none'">` : ''}
       </div>
       <div class="album-info">
         <span class="album-artist">${artist}</span>
@@ -215,13 +215,53 @@ function initCalNav() {
   });
 }
 
+/* ── Weather ────────────────────────────────────────────────── */
+const WMO = {
+  0: 'Clear', 1: 'Mostly Clear', 2: 'Partly Cloudy', 3: 'Overcast',
+  45: 'Foggy', 48: 'Foggy',
+  51: 'Drizzle', 53: 'Drizzle', 55: 'Drizzle',
+  61: 'Rain', 63: 'Rain', 65: 'Heavy Rain',
+  71: 'Snow', 73: 'Snow', 75: 'Heavy Snow', 77: 'Snow',
+  80: 'Showers', 81: 'Showers', 82: 'Heavy Showers',
+  85: 'Snow Showers', 86: 'Snow Showers',
+  95: 'Thunderstorm', 96: 'Thunderstorm', 99: 'Thunderstorm',
+};
+
+async function loadWeather() {
+  const el = document.getElementById('weather');
+  try {
+    const res = await fetch(
+      'https://api.open-meteo.com/v1/forecast?latitude=43.6532&longitude=-79.3832&daily=temperature_2m_max,temperature_2m_min,weathercode&temperature_unit=celsius&timezone=America%2FToronto&forecast_days=5'
+    );
+    if (!res.ok) throw new Error(res.status);
+    const { daily } = await res.json();
+    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    el.innerHTML = daily.time.slice(0, 5).map((dateStr, i) => {
+      const label = i === 0 ? 'Today' : days[new Date(dateStr + 'T12:00:00').getDay()];
+      const hi    = Math.round(daily.temperature_2m_max[i]);
+      const lo    = Math.round(daily.temperature_2m_min[i]);
+      const cond  = WMO[daily.weathercode[i]] || '';
+      const cls = i === 0 ? 'forecast-day forecast-today' : 'forecast-day';
+      return `<div class="${cls}">
+        <span class="forecast-label">${label}</span>
+        <span class="forecast-temps">${hi}° / ${lo}°</span>
+        <span class="forecast-cond">${cond}</span>
+      </div>`;
+    }).join('');
+  } catch {
+    el.textContent = '';
+  }
+}
+
 /* ── Init ───────────────────────────────────────────────────── */
 loadMusic();
+loadWeather();
 renderCalendar();
 initToggle();
 initCalNav();
 
 setInterval(loadMusic, 60 * 60 * 1000);
+setInterval(loadWeather, 15 * 60 * 1000);
 
 // Re-render calendar at midnight in case month rolls over
 function scheduleCalendarRefresh() {

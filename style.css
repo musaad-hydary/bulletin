@@ -52,16 +52,57 @@ html, body {
 /* ── Masthead ──────────────────────────────────────── */
 .masthead {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   padding: 10px 28px 8px;
   border-bottom: 3px double var(--ink);
   flex-shrink: 0;
 }
 
-.masthead-date {
-  text-align: right;
+.masthead-weather {
+  display: flex;
+  gap: 20px;
 }
+
+.forecast-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.forecast-today {
+  outline: 1px solid #e8698a;
+}
+
+.forecast-label {
+  font-family: var(--ff-body);
+  font-size: 0.48rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.forecast-temps {
+  font-family: var(--ff-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.forecast-cond {
+  font-family: var(--ff-body);
+  font-size: 0.44rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
 
 .masthead-time {
   font-family: var(--ff-display);
@@ -70,6 +111,14 @@ html, body {
   letter-spacing: -0.03em;
   line-height: 1;
   color: var(--ink);
+}
+
+.seconds {
+  font-family: var(--ff-display);
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: var(--ink);
+  letter-spacing: -0.03em;
 }
 
 .ampm {
@@ -157,6 +206,7 @@ html, body {
   border-bottom: 1px solid var(--ink);
   margin-bottom: 12px;
   flex-shrink: 0;
+  min-height: 2rem;
 }
 
 .music-header .section-label {
@@ -216,8 +266,8 @@ html, body {
   opacity: 0.75;
 }
 
-.genre-divider--hiphop { background: linear-gradient(90deg, #e8698a 0%, #f7a8bb 50%, #e8698a 100%); }
-.genre-divider--rnb    { background: linear-gradient(90deg, #c94a6a 0%, #e8698a 50%, #c94a6a 100%); }
+.genre-divider--hiphop { background: #e8698a; }
+.genre-divider--rnb    { background: #c94a6a; }
 
 .genre-label {
   font-family: var(--ff-body);
@@ -262,6 +312,12 @@ html, body {
   height: 100%;
   object-fit: cover;
   display: block;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.album-art.loaded {
+  opacity: 1;
 }
 
 .album-info {
@@ -304,6 +360,7 @@ html, body {
   padding-bottom: 8px;
   border-bottom: 1px solid var(--ink);
   margin-bottom: 12px;
+  min-height: 2rem;
 }
 
 .cal-header .section-label {
