@@ -380,6 +380,64 @@ html, body {
   line-height: 1.3;
 }
 
+/* ── Faves (Loved) layout ──────────────────────────── */
+.faves-featured {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  gap: 10px;
+}
+
+.faves-art-box {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.faves-art {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.faves-info {
+  flex-shrink: 0;
+}
+
+.faves-artist {
+  font-family: var(--ff-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.faves-album {
+  font-family: var(--ff-body);
+  font-style: italic;
+  font-size: 0.72rem;
+  color: var(--ink-mid);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+
+.faves-year {
+  font-family: var(--ff-body);
+  font-size: 0.6rem;
+  color: var(--ink-light);
+  letter-spacing: 0.08em;
+  margin-top: 4px;
+}
+
 /* ── Calendar nav header ───────────────────────────── */
 .cal-header {
   display: flex;
@@ -539,6 +597,22 @@ html, body {
   font-size: 0.72rem;
   color: var(--ink-faint);
   padding: 8px 0;
+}
+
+/* ── Inactivity dim ────────────────────────────────── */
+#dim-overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2s ease;
+  z-index: 9999;
+}
+
+#dim-overlay.dim-active {
+  opacity: 0.85;
+  pointer-events: auto;
 }
 
 /* ── Skeleton ──────────────────────────────────────── */

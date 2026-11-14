@@ -8,7 +8,7 @@ A minimal newspaper-style dashboard for a digital photo frame or any Android dis
 
 - **Clock** - live 12-hour clock with seconds
 - **Weather** - 5-day forecast via Open-Meteo (no API key)
-- **Music** - top albums across Pop, Hip-Hop, and Alternative; toggle between Trending (Deezer) and Fresh (MusicBrainz)
+- **Music** - three-mode toggle: AOTD (album of the day from a curated list, rotates daily), Trending (Deezer charts), and Fresh (MusicBrainz new releases)
 - **Calendar** - monthly calendar with Canadian holidays; click month label to jump to today
 - **Auto theme** - light/dark based on time of day (7am/7pm EST)
 
