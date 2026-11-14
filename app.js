@@ -188,6 +188,11 @@ function initCalNav() {
     if (calMonth > 11) { calMonth = 0; calYear++; }
     renderCalendar();
   });
+  document.getElementById('cal-section-label').addEventListener('click', () => {
+    const now = new Date();
+    calYear = now.getFullYear(); calMonth = now.getMonth();
+    renderCalendar();
+  });
 }
 
 /* ── Weather ────────────────────────────────────────────────── */

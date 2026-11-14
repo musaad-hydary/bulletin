@@ -377,6 +377,7 @@ html, body {
   margin-bottom: 0;
   padding-bottom: 0;
   border-bottom: none;
+  cursor: pointer;
 }
 
 .cal-nav-btn {
