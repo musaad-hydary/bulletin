@@ -11,10 +11,7 @@ function applyTheme() {
 applyTheme();
 setInterval(applyTheme, 60 * 1000);
 
-/* proxy API to live Vercel when running locally */
-const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-  ? 'https://bulletin-six.vercel.app'
-  : '';
+const API_BASE = '';
 
 /* ── Clock ──────────────────────────────────────────────────── */
 const DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -63,14 +60,14 @@ async function loadGenre(genreId) {
     const res = await fetch(`${API_BASE}/api/music?genre=${genreId}&source=${musicSource}`);
     if (!res.ok) throw new Error(res.status);
     const { albums } = await res.json();
-    container.innerHTML = albums.slice(0, 3).map(a => albumHTML(a)).join('');
+    container.innerHTML = albums.slice(0, 9).map(a => albumHTML(a)).join('');
   } catch {
     container.innerHTML = '<div class="empty-msg">Could not load</div>';
   }
 }
 
 function loadMusic() {
-  ['pop', 'hiphop', 'rnb'].forEach(loadGenre);
+  ['pop', 'hiphop', 'alternative'].forEach(loadGenre);
 }
 
 function initToggle() {

@@ -5,13 +5,13 @@ const UA = 'frame-dashboard/1.0 (musaadhydary@gmail.com)';
 
 // MusicBrainz tags that actually return results
 const mbTagMap = {
-  hiphop: 'hip-hop',
-  pop:    'indie-pop',
-  rnb:    'rhythm-and-blues',
+  hiphop:      'hip-hop',
+  pop:         'indie-pop',
+  alternative: 'alternative',
 };
 
 // Deezer genre IDs for chart mode
-const deezerGenreMap = { hiphop: 116, pop: 132, rnb: 165 };
+const deezerGenreMap = { hiphop: 116, pop: 132, alternative: 85 };
 
 function dateFloor(daysBack) {
   const d = new Date();
@@ -27,14 +27,14 @@ async function fetchNew(genre) {
     `date:[${since} TO ${today}] AND primarytype:Album AND status:Official AND tag:${tag}`
   );
   const r = await fetch(
-    `https://musicbrainz.org/ws/2/release?query=${query}&limit=10&fmt=json`,
+    `https://musicbrainz.org/ws/2/release?query=${query}&limit=9&fmt=json`,
     { headers: { 'User-Agent': UA } }
   );
   if (!r.ok) throw new Error(`MusicBrainz ${r.status}`);
   const { releases = [] } = await r.json();
 
   // Return CAA URLs directly — browser follows the redirect when loading the img
-  return releases.slice(0, 3).map(rel => {
+  return releases.slice(0, 9).map(rel => {
     const rgId = rel['release-group']?.id;
     const artwork = rgId
       ? `https://coverartarchive.org/release-group/${rgId}/front-250`
@@ -49,10 +49,10 @@ async function fetchNew(genre) {
 
 async function fetchCharts(genre) {
   const genreId = deezerGenreMap[genre];
-  const r = await fetch(`https://api.deezer.com/chart/${genreId}/albums?limit=3`);
+  const r = await fetch(`https://api.deezer.com/chart/${genreId}/albums?limit=9`);
   if (!r.ok) throw new Error(`Deezer ${r.status}`);
   const { data = [] } = await r.json();
-  return data.slice(0, 3).map(a => ({
+  return data.slice(0, 9).map(a => ({
     title:   a.title,
     artist:  a.artist?.name || 'Unknown',
     artwork: a.cover_big || a.cover_medium || a.cover || '',
