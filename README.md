@@ -11,6 +11,7 @@ A minimal newspaper-style dashboard for a digital photo frame or any Android dis
 - **Music** - three-mode toggle: AOTD (album of the day from a curated list, rotates daily), Trending (Deezer charts), and Fresh (MusicBrainz new releases)
 - **Calendar** - monthly calendar with Canadian holidays; click month label to jump to today
 - **Auto theme** - light/dark based on time of day (7am/7pm EST)
+- **Inactivity dim** - screen fades to black after 5 minutes of no touch; tap to restore
 
 ## Deploy
 
