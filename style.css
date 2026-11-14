@@ -269,7 +269,7 @@ html, body {
 }
 
 .genre-divider--hiphop       { background: #e8698a; }
-.genre-divider--alternative  { background: #c94a6a; }
+.genre-divider--alternative  { background: #e8698a; }
 
 .genre-label {
   font-family: var(--ff-body);
@@ -418,7 +418,7 @@ html, body {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   flex-shrink: 0;
-  margin-bottom: 14px;
+  margin-bottom: 24px;
 }
 
 .cal-day-header {
