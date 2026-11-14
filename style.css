@@ -106,7 +106,7 @@ html, body {
 
 .masthead-time {
   font-family: var(--ff-display);
-  font-size: 2.6rem;
+  font-size: 3.2rem;
   font-weight: 900;
   letter-spacing: -0.03em;
   line-height: 1;
@@ -115,12 +115,12 @@ html, body {
 
 .seconds {
   font-family: var(--ff-display);
-  font-size: 2.6rem;
+  font-size: 3.2rem;
   font-weight: 900;
   color: var(--ink);
   letter-spacing: -0.03em;
   display: inline-block;
-  width: 3.6rem;
+  width: 4.8rem;
 }
 
 .masthead-right {
