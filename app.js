@@ -248,6 +248,13 @@ function scheduleCalendarRefresh() {
 }
 scheduleCalendarRefresh();
 
+// Full page reload once a day at midnight as a safety net
+(function scheduleReload() {
+  const now = new Date();
+  const msUntilMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1) - now;
+  setTimeout(() => location.reload(), msUntilMidnight);
+})();
+
 /* ── Utils ──────────────────────────────────────────────────── */
 function escHtml(str) {
   return String(str)
