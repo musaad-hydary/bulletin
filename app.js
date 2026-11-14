@@ -29,10 +29,42 @@ function updateClock() {
   document.getElementById('clock').textContent    = `${h}:${m}`;
   document.getElementById('seconds').textContent  = `:${s}`;
   document.getElementById('ampm').textContent     = ap;
+  const bigClock = document.getElementById('clock-big');
+  if (bigClock) {
+    bigClock.textContent                                   = `${h}:${m}`;
+    document.getElementById('seconds-big').textContent    = `:${s}`;
+    document.getElementById('ampm-big').textContent       = ap;
+  }
 }
 
 updateClock();
 setInterval(updateClock, 1000);
+
+(function initClockMode() {
+  const overlay = document.createElement('div');
+  overlay.id = 'clock-overlay';
+  overlay.innerHTML = `
+    <div class="clock-big-wrap">
+      <div class="clock-big-time">
+        <span id="clock-big"></span><span class="clock-big-seconds" id="seconds-big"></span><span class="clock-big-ampm" id="ampm-big"></span>
+      </div>
+      <div class="clock-big-date" id="clock-big-date"></div>
+    </div>`;
+  document.body.appendChild(overlay);
+
+  function updateDate() {
+    const now = new Date();
+    document.getElementById('clock-big-date').textContent =
+      `${DAYS[now.getDay()]}, ${MONTHS[now.getMonth()]} ${now.getDate()}`;
+  }
+
+  overlay.addEventListener('click', () => overlay.classList.remove('clock-overlay-active'));
+
+  document.querySelector('.masthead-time').addEventListener('click', () => {
+    updateDate();
+    overlay.classList.add('clock-overlay-active');
+  });
+})();
 
 /* ── Music ──────────────────────────────────────────────────── */
 let musicSource = 'faves';

@@ -15,6 +15,7 @@ A minimal newspaper-style dashboard for a digital photo frame or any Android dis
 - **Calendar** - monthly calendar with Canadian holidays; click month label to jump to today
 - **Auto theme** - light/dark based on time of day (7am/7pm EST)
 - **Inactivity dim** - screen fades to black after 5 minutes of no touch; tap to restore
+- **Fullscreen clock** - tap the clock to go fullscreen; tap anywhere to dismiss
 
 ## Deploy
 
