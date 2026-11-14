@@ -554,3 +554,144 @@ html, body {
   0%   { background-position: -200% 0; }
   100% { background-position:  200% 0; }
 }
+
+/* ── Responsive (mobile) ───────────────────────────── */
+@media (max-width: 768px) {
+  html { font-size: 14px; }
+
+  html, body {
+    height: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .newspaper {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  /* Clock centred */
+  .masthead {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px 10px;
+  }
+
+  .masthead-time {
+    font-size: 1.9rem;
+  }
+
+  .seconds {
+    font-size: 1.9rem;
+    width: 2.7rem;
+  }
+
+  /* Weather full-width, evenly spaced */
+  .masthead-weather {
+    width: 100%;
+    justify-content: space-between;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .masthead-weather::-webkit-scrollbar { display: none; }
+
+  .forecast-day {
+    flex: 1;
+    min-width: 52px;
+    padding: 4px 4px;
+  }
+
+  .body {
+    grid-template-columns: 1fr;
+    overflow: visible;
+    min-height: 0;
+  }
+
+  .col-divider { display: none; }
+
+  .column {
+    overflow: visible;
+    min-width: 0;
+    padding: 14px 16px 12px;
+  }
+
+  /* horizontal rule between stacked columns */
+  .col-calendar {
+    border-bottom: 3px double var(--ink);
+    padding-bottom: 20px;
+  }
+
+  #calendar-grid {
+    overflow: visible;
+    height: auto;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .cal-month-label {
+    font-size: 0.58rem;
+    margin-bottom: 4px;
+  }
+
+  .cal-headers {
+    margin-bottom: 8px;
+  }
+
+  .cal-headers,
+  .cal-grid {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+
+  .cal-cell {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .cal-day-header {
+    font-size: 0.5rem;
+    letter-spacing: 0.04em;
+  }
+
+  .cal-day-num {
+    font-size: 0.72rem;
+    width: 18px;
+  }
+
+  .cal-holiday-name {
+    font-size: 0.38rem;
+  }
+
+  .cal-grid { grid-template-rows: repeat(6, auto); }
+  .cal-legend { overflow: visible; }
+
+  .genres-wrap {
+    overflow: visible;
+    height: auto;
+  }
+
+  .genre-section {
+    overflow: visible;
+    height: auto;
+    margin-bottom: 8px;
+  }
+
+  /* Albums: natural height so art + title/artist are fully visible */
+  .albums-row {
+    height: auto;
+    flex: none;
+    padding-bottom: 4px;
+  }
+
+  /* 3 visible at once */
+  .album-card {
+    width: calc((100% - 16px) / 3);
+  }
+
+  .album-art-box {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+  }
+}
