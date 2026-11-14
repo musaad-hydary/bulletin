@@ -4,19 +4,39 @@ A minimal dashboard designed to run fullscreen on a Frameo digital photo frame (
 
 ## Features
 
-- **Clock and date** - live 12-hour clock with day/month display
-- **Greeting** - time-aware greeting (morning/afternoon/evening/night) with rotating emoticons
+- **Clock** - live 12-hour clock with seconds
+- **Weather** - 5-day forecast for Toronto (Open-Meteo, no API key needed)
 - **Auto theme** - switches between light and dark mode at 7am/7pm EST
-- **Music** - top albums across Hip-Hop, Pop, and R&B; toggle between new releases (MusicBrainz) and charts (Deezer)
-- **Calendar** - navigable monthly calendar with Canadian holidays highlighted; optionally shows upcoming events from any ICS feed
+- **Music** - top albums across Pop, Hip-Hop, and Alternative; horizontally scrollable (up to 9 per genre); toggle between Trending (Deezer charts) and Fresh (MusicBrainz new releases)
+- **Calendar** - navigable monthly calendar with Canadian holidays highlighted; click the month label to return to today
+
+## Project structure
+
+```
+api/
+  music.js      Vercel serverless function - fetches album data from Deezer / MusicBrainz
+  calendar.js   Vercel serverless function - parses ICS calendar feeds
+app.js          Frontend logic (clock, theme, music, calendar, weather)
+style.css       Styles
+index.html      Entry point
+setup-frame.sh  ADB script to configure the Frameo device as a kiosk
+```
 
 ## Deploy
 
 ```bash
-vercel deploy
+vercel deploy --prod
 ```
 
-The frontend proxies API calls to the live Vercel URL when running locally (`localhost`), so the dev experience requires no local server for the API routes.
+API routes are served locally by `vercel dev` on port 3000, so no separate server is needed during development.
+
+## Environment variables
+
+| Variable | Description |
+|---|---|
+| `CALENDAR_URLS` | Comma-separated list of `.ics` feed URLs to display upcoming events |
+
+Set these in the Vercel dashboard under Project Settings > Environment Variables.
 
 ## Frame setup
 
