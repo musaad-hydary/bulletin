@@ -77,6 +77,7 @@ function initToggle() {
       musicSource = btn.dataset.source;
       document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      document.getElementById('music-section-label').textContent = musicSource === 'charts' ? 'Trending' : 'New Releases';
       loadMusic();
     });
   });
