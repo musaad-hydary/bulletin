@@ -46,11 +46,31 @@ setInterval(updateClock, 1000);
   overlay.innerHTML = `
     <div class="clock-big-wrap">
       <div class="clock-big-time">
-        <span id="clock-big"></span><span class="clock-big-seconds" id="seconds-big"></span><span class="clock-big-ampm" id="ampm-big"></span>
+        <span id="clock-big"></span><span class="clock-big-seconds" id="seconds-big"></span><button class="clock-big-ampm" id="ampm-big"></button>
       </div>
       <div class="clock-big-date" id="clock-big-date"></div>
     </div>`;
   document.body.appendChild(overlay);
+
+  // Wire any element to reload on touch or click, stopping propagation
+  function wireReload(el) {
+    el.addEventListener('touchstart', function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      window.location.reload();
+    }, { passive: false });
+    el.addEventListener('click', function(e) {
+      e.stopPropagation();
+      window.location.reload();
+    });
+  }
+
+  // Fullscreen clock: AM/PM reloads
+  wireReload(document.getElementById('ampm-big'));
+
+  // Masthead: AM/PM and refresh reload
+  wireReload(document.getElementById('ampm'));
+  wireReload(document.querySelector('.refresh-btn'));
 
   function updateDate() {
     const now = new Date();
@@ -58,9 +78,17 @@ setInterval(updateClock, 1000);
       `${DAYS[now.getDay()]}, ${MONTHS[now.getMonth()]} ${now.getDate()}`;
   }
 
-  overlay.addEventListener('click', () => overlay.classList.remove('clock-overlay-active'));
+  // Overlay: tap anywhere except AM/PM to dismiss
+  function dismissOverlay(e) {
+    if (document.getElementById('ampm-big').contains(e.target)) return;
+    overlay.classList.remove('clock-overlay-active');
+  }
+  overlay.addEventListener('touchstart', dismissOverlay, { passive: true });
+  overlay.addEventListener('click', dismissOverlay);
 
-  document.querySelector('.masthead-time').addEventListener('click', () => {
+  // Masthead clock digits: open fullscreen clock (skip if tap was on AM/PM or refresh)
+  document.querySelector('.masthead-time').addEventListener('click', function(e) {
+    if (e.target.closest('#ampm, .refresh-btn')) return;
     updateDate();
     overlay.classList.add('clock-overlay-active');
   });
