@@ -33,7 +33,7 @@ vercel --prod
 
 ## Frame setup
 
-Tested on a Rockchip RK3326 frame, Android 11, 1280x800.
+Tested on a Rockchip RK3326 frame, Android 11, 1280x800. ([Amazon.ca](https://www.amazon.ca/dp/B0D8VTQKQX?th=1))
 
 ### Requirements
 

@@ -622,6 +622,9 @@ html, body {
 }
 
 .clock-big-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
 }
 
@@ -660,6 +663,29 @@ html, body {
   text-transform: uppercase;
   color: var(--ink-light);
   margin-top: 1.5rem;
+}
+
+@media (orientation: portrait) {
+  #clock-overlay {
+    padding: 0 2rem;
+  }
+
+  .clock-big-time {
+    font-size: 9vw;
+  }
+
+  .clock-big-seconds {
+    font-size: 9vw;
+    width: auto;
+  }
+
+  .clock-big-ampm {
+    font-size: 3vw;
+  }
+
+  .clock-big-date {
+    font-size: 3vw;
+  }
 }
 
 /* ── Inactivity dim ────────────────────────────────── */
